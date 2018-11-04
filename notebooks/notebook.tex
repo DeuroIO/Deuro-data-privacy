@@ -1,0 +1,828 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{04 - Case Study}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{04. Case Study - Privacy in
+Practice}\label{case-study---privacy-in-practice}
+
+In this notebook, we'll explore the possibilties for data privacy on a
+new dataset. In this notebook, you'll be asked to work in small groups,
+so make friends with someone seated near you.
+
+Your challenge is that you are working with a health care provider, who
+would like to do the "machine learning" on this dataset to figure out if
+there are preventative measures that can be taken so fewer patients are
+seen in the hospital for related care or so that their visits are
+shorter. The goal is that more potentially affected patients are given
+access to primary care physicians and regular medication or visits that
+can keep them out of the hostpital for long stays. This study is focused
+on blood-sugar related illnesses, but not only diabetes.
+
+Using this dataset, we'll walk through a few possible scenarios and
+apply what we have learned today about data privacy to this new use
+case.
+
+    \subsection{Part One: Determining What's Useful and What's
+Sensitive}\label{part-one-determining-whats-useful-and-whats-sensitive}
+
+\begin{itemize}
+\tightlist
+\item
+  Data completeness
+\item
+  Potential sensitive columns
+\item
+  Potential useful features
+\item
+  What should we use (or not use)? Why?
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/health\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}            admitted\_ts  age  ambulance\_call  blood\_sugar\_reading  \textbackslash{}
+        0  2018-05-09 12:06:28   49               1                  108   
+        1  2018-05-12 10:02:55   82               1                   70   
+        2  2018-05-13 12:25:17   71               1                  100   
+        3  2018-05-14 12:20:08   87               0                  113   
+        4  2018-05-17 08:35:23   53               1                   93   
+        
+           days\_since\_last\_visit  has\_diabetes  hospital  hours\_hospitalized  \textbackslash{}
+        0                     99             1  district                  15   
+        1                    100             1   general                  22   
+        2                     78             1  northern                   1   
+        3                     72             1   general                  22   
+        4                     80             1  district                  17   
+        
+           hydration\_level    id  insulin marital\_status  no\_primary\_dr  \textbackslash{}
+        0                6  1000        1         single          False   
+        1                1  1001        1        married          False   
+        2                4  1002        1      no\_answer           True   
+        3                4  1003        1      no\_answer          False   
+        4                8  1004        0      no\_answer           True   
+        
+              patient\_name  private\_insurance  released\_sameday          ssn  \textbackslash{}
+        0   Rachel Shelton                  0                 0  743-97-4081   
+        1   Barbara Medina                  0                 0  698-10-2230   
+        2  Kaitlyn Daniels                  0                 1  540-83-4297   
+        3    William Reyes                  1                 0  282-96-8755   
+        4       Eric Booth                  0                 0  130-25-8918   
+        
+           symptom\_code  
+        0             4  
+        1             3  
+        2             2  
+        3             0  
+        4             8  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}
+        \PY{n}{df}\PY{o}{.}\PY{n}{admitted\PYZus{}ts} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{admitted\PYZus{}ts}\PY{o}{.}\PY{n}{map}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{o}{+} \PY{n}{timedelta}\PY{p}{(}\PY{n}{days}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{8}\PY{o}{*}\PY{l+m+mi}{12}\PY{o}{*}\PY{l+m+mi}{30}\PY{p}{)} \PY{k}{if} \PY{n}{datetime}\PY{o}{.}\PY{n}{strptime}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y\PYZhy{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{year} \PY{o}{\PYZgt{}} \PY{l+m+mi}{2018} \PY{k}{else} \PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/health\PYZus{}data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1000 entries, 0 to 999
+Data columns (total 18 columns):
+admitted\_ts              1000 non-null object
+age                      1000 non-null int64
+ambulance\_call           1000 non-null int64
+blood\_sugar\_reading      1000 non-null int64
+days\_since\_last\_visit    1000 non-null int64
+has\_diabetes             1000 non-null int64
+hospital                 1000 non-null object
+hours\_hospitalized       1000 non-null int64
+hydration\_level          1000 non-null int64
+id                       1000 non-null int64
+insulin                  1000 non-null int64
+marital\_status           1000 non-null object
+no\_primary\_dr            1000 non-null bool
+patient\_name             1000 non-null object
+private\_insurance        1000 non-null int64
+released\_sameday         1000 non-null int64
+ssn                      1000 non-null object
+symptom\_code             1000 non-null int64
+dtypes: bool(1), int64(12), object(5)
+memory usage: 133.9+ KB
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}               age  ambulance\_call  blood\_sugar\_reading  days\_since\_last\_visit  \textbackslash{}
+        count  1000.00000     1000.000000          1000.000000            1000.000000   
+        mean     52.22100        0.504000           109.108000              59.778000   
+        std      20.69663        0.500234            22.908014              23.054853   
+        min      16.00000        0.000000            70.000000              20.000000   
+        25\%      35.00000        0.000000            90.000000              39.000000   
+        50\%      51.00000        1.000000           109.000000              60.000000   
+        75\%      70.25000        1.000000           128.000000              80.000000   
+        max      88.00000        1.000000           149.000000             100.000000   
+        
+               has\_diabetes  hours\_hospitalized  hydration\_level           id  \textbackslash{}
+        count   1000.000000         1000.000000      1000.000000  1000.000000   
+        mean       0.754000           10.928000         4.566000  1499.500000   
+        std        0.430894            6.322087         2.879225   288.819436   
+        min        0.000000            0.000000         0.000000  1000.000000   
+        25\%        1.000000            6.000000         2.000000  1249.750000   
+        50\%        1.000000           11.000000         5.000000  1499.500000   
+        75\%        1.000000           16.000000         7.000000  1749.250000   
+        max        1.000000           22.000000         9.000000  1999.000000   
+        
+                   insulin  private\_insurance  released\_sameday  symptom\_code  
+        count  1000.000000        1000.000000       1000.000000   1000.000000  
+        mean      0.492000           0.475000          0.354000      4.586000  
+        std       0.500186           0.499624          0.478448      2.892226  
+        min       0.000000           0.000000          0.000000      0.000000  
+        25\%       0.000000           0.000000          0.000000      2.000000  
+        50\%       0.000000           0.000000          0.000000      4.000000  
+        75\%       1.000000           1.000000          1.000000      7.000000  
+        max       1.000000           1.000000          1.000000      9.000000  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} if you\PYZsq{}d like, continue to look at column distributions, values or feel free to plot a few which are of interest to you.}
+\end{Verbatim}
+
+
+    \subsection{Discussion:}\label{discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  What columns should we use?
+\item
+  Which ones should we remove?
+\item
+  Are there columns which we should protect but not remove?
+\end{itemize}
+
+For each, we need some justification or thought!
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{cols\PYZus{}to\PYZus{}drop} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{patient\PYZus{}name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ssn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        
+        \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n}{cols\PYZus{}to\PYZus{}drop}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{df}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}9}]:} Index(['admitted\_ts', 'age', 'ambulance\_call', 'blood\_sugar\_reading',
+               'days\_since\_last\_visit', 'has\_diabetes', 'hospital',
+               'hours\_hospitalized', 'hydration\_level', 'insulin', 'marital\_status',
+               'no\_primary\_dr', 'private\_insurance', 'released\_sameday',
+               'symptom\_code'],
+              dtype='object')
+\end{Verbatim}
+            
+    \subsection{Part Two: Determining the Approach for Protecting the
+Columns}\label{part-two-determining-the-approach-for-protecting-the-columns}
+
+\begin{itemize}
+\item
+  Scenario One: You are an employee of the company which produced this
+  data. You have full access and can use full variables for building
+  your model; however, you want to respect privacy and ensure your model
+  is valuable without leaking private information.
+\item
+  Scenario Two: You are the database manager at the health care provider
+  asked to prepare the data to send to a machine learning consultant who
+  will help give you a more detailed analysis. The consultant has signed
+  all the necessary NDAs, but you have instructions to keep the private
+  or potentially sensitive data to a minimum.
+\item
+  Scenario Three: You suggested releasing the dataset to Kaggle. It will
+  be uploaded so hundreds of Kagglers can participate. For the sake of
+  avoiding a long legal argument, let's say all patients were part of a
+  study in which they signed a waiver that their records could be
+  released publicly. That said, you still want to avoid a PR nightmare
+  and protect the data as much as possible.
+\end{itemize}
+
+Based on the scenario for your team above, what do you do?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} any investigation code to see what approach you might use}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df}\PY{o}{.}\PY{n}{has\PYZus{}diabetes}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} 1    754
+         0    246
+         Name: has\_diabetes, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df}\PY{o}{.}\PY{n}{private\PYZus{}insurance}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 0    525
+         1    475
+         Name: private\_insurance, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df}\PY{o}{.}\PY{n}{no\PYZus{}primary\PYZus{}dr}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} False    591
+         True     409
+         Name: no\_primary\_dr, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{df}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no\PYZus{}primary\PYZus{}dr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:} age                      0.001633
+         ambulance\_call           0.011651
+         blood\_sugar\_reading      0.073805
+         days\_since\_last\_visit    0.012869
+         has\_diabetes             0.069018
+         hours\_hospitalized      -0.025929
+         hydration\_level         -0.058305
+         insulin                  0.035689
+         no\_primary\_dr            1.000000
+         private\_insurance       -0.453227
+         released\_sameday         0.039190
+         symptom\_code             0.023448
+         Name: no\_primary\_dr, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{df}\PY{o}{.}\PY{n}{marital\PYZus{}status}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} married      272
+         single       255
+         divorced     254
+         no\_answer    219
+         Name: marital\_status, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{df}\PY{o}{.}\PY{n}{age}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins}\PY{o}{=}\PY{l+m+mi}{70}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} <matplotlib.axes.\_subplots.AxesSubplot at 0x107cf7b00>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Discussion}\label{discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  What methods will be most effective in the scenario you have?
+\item
+  Have you considered potential data leakage within the
+  \emph{non-sensitive} columns?
+\item
+  Is there other sensitive or secret data we should address given the
+  scenario?
+\end{itemize}
+
+    \subsubsection{Step Three: Implement Data Protection for the
+Dataset}\label{step-three-implement-data-protection-for-the-dataset}
+
+Now it's time to code! Feel free to utilize code from the previous
+notebooks to implement protection of at least two of the columns you
+chose as sensitive. Are there ways to make these applications more
+Pandas-friendly or easy to use?
+
+    \subsection{Exercise}\label{exercise}
+
+\textbf{Implement protection for the columns you are keeping -\/- you
+may use code from previous notebooks in this workshop. If you'd like to
+use our API, you can check out the documentation at:
+https://docs.kiprotect.com }
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{} \PYZpc{}load ../solutions/case\PYZhy{}study/possible\PYZhy{}solution.py}
+         
+         \PY{c+c1}{\PYZsh{} scenario three: possible implementation (to hide as solution for hints)\PYZsh{} scena }
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{} pseudonymize hospital, age and admitted timestamp}
+         \PY{k+kn}{import} \PY{n+nn}{json}
+         \PY{k+kn}{import} \PY{n+nn}{requests}
+         
+         
+         \PY{n}{SHARED\PYZus{}KEY} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{42a2d3fc1cc449e2a27ddd457e056012}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{n}{item\PYZus{}list} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{to\PYZus{}dict}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{actions} \PY{o}{=} \PY{p}{[}
+             \PY{p}{\PYZob{}}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pseudonymize\PYZhy{}hospital}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{transform\PYZhy{}value}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{p}{\PYZob{}}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{key}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hospital}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pseudonymize}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:} \PY{p}{\PYZob{}}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{merengue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{key}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{89f7dklnvkldhiwokdljklsnm,qip72}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} 
+                     \PY{p}{\PYZcb{}}
+                 \PY{p}{\PYZcb{}}
+             \PY{p}{\PYZcb{}}\PY{p}{,}
+             \PY{p}{\PYZob{}}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pseudonymize\PYZhy{}age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{transform\PYZhy{}value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{key}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pseudonymize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{structured}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{key}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{320fidsjkl8wy8uiofme\PYZsh{}908}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{integer}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{format}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{raw}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{typeParams}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{min}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{16}\PY{p}{,}
+                             \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{max}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+m+mi}{100}
+                         \PY{p}{\PYZcb{}}
+                     \PY{p}{\PYZcb{}}
+                 \PY{p}{\PYZcb{}}
+             \PY{p}{\PYZcb{}}\PY{p}{,}
+             \PY{p}{\PYZob{}}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{name}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pseudonymize\PYZhy{}admitted\PYZhy{}ts}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                 \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{transform\PYZhy{}value}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{key}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{admitted\PYZus{}ts}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                     \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{pseudonymize}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{method}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{structured}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{key}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{320fidsjkl8wy8uiofme\PYZsh{}908}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{preservePrefix}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{k+kc}{True}\PY{p}{,}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{format}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{(2000\PYZhy{}2019)Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{H:}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{M:}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{S}\PY{l+s+s2}{\PYZdq{}}
+                     \PY{p}{\PYZcb{}}
+                 \PY{p}{\PYZcb{}}
+             \PY{p}{\PYZcb{}}
+         \PY{p}{]}
+         
+         \PY{n}{pseudonymized\PYZus{}data} \PY{o}{=} \PY{n}{requests}\PY{o}{.}\PY{n}{post}\PY{p}{(}
+             \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{https://api.kiprotect.com/v1/transform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+             \PY{n}{data} \PY{o}{=} \PY{n}{json}\PY{o}{.}\PY{n}{dumps}\PY{p}{(}
+                 \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{actions}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{actions}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{items}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{item\PYZus{}list}\PY{p}{\PYZcb{}}\PY{p}{,} 
+                 \PY{n}{allow\PYZus{}nan}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{,}
+             \PY{n}{headers} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Authorization}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bearer }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}
+                 \PY{n}{SHARED\PYZus{}KEY}\PY{p}{)}\PY{p}{\PYZcb{}}
+         \PY{p}{)}
+         
+         
+         \PY{n}{protected\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{pseudonymized\PYZus{}data}\PY{o}{.}\PY{n}{json}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{items}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{protected\PYZus{}df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}              \_kip          admitted\_ts  age  ambulance\_call  \textbackslash{}
+         0  64656661756c74  2001-01-19 07:32:22   77               1   
+         1  64656661756c74  2002-03-21 04:33:23   69               1   
+         2  64656661756c74  2002-06-25 10:43:14   50               1   
+         3  64656661756c74  2010-06-26 00:13:07   87               0   
+         4  64656661756c74  2013-11-10 15:22:28   44               1   
+         
+            blood\_sugar\_reading  days\_since\_last\_visit  has\_diabetes      hospital  \textbackslash{}
+         0                  108                     99             1  UTOaAu5Ih+I=   
+         1                   70                    100             1  APF7NaVavg==   
+         2                  100                     78             1  W0PNjS56oM4=   
+         3                  113                     72             1  APF7NaVavg==   
+         4                   93                     80             1  UTOaAu5Ih+I=   
+         
+            hours\_hospitalized  hydration\_level  insulin marital\_status  no\_primary\_dr  \textbackslash{}
+         0                  15                6        1         single          False   
+         1                  22                1        1        married          False   
+         2                   1                4        1      no\_answer           True   
+         3                  22                4        1      no\_answer          False   
+         4                  17                8        0      no\_answer           True   
+         
+            private\_insurance  released\_sameday  symptom\_code  
+         0                  0                 0             4  
+         1                  0                 0             3  
+         2                  0                 1             2  
+         3                  1                 0             0  
+         4                  0                 0             8  
+\end{Verbatim}
+            
+    \subsection{Exercise}\label{exercise}
+
+\textbf{Use a randomized response scheme to protect the values of the
+}no\_primary\_dr** and \textbf{has\_diabetes} columns of the dataset.**
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} \PYZpc{}load \PYZdq{}../solutions/case\PYZhy{}study/dp.py\PYZdq{}}
+         \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{k+kn}{import} \PY{n+nn}{random}
+         
+         \PY{k}{def} \PY{n+nf}{process\PYZus{}value}\PY{p}{(}\PY{n}{value}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    :param value: The value to apply the differentially private scheme to.}
+         \PY{l+s+sd}{    :param     p: The probability of returning a random value instead of the true one}
+         \PY{l+s+sd}{    :param     k: The probability of returning 1 when generating a random value}
+         \PY{l+s+sd}{    :    returns: A new, differentially private value}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{rv} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)}
+             \PY{k}{if} \PY{n}{rv} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{p}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}we return a random value}
+                 \PY{n}{rv} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{rv} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{k}\PY{p}{:}
+                     \PY{k}{return} \PY{l+m+mi}{0}
+                 \PY{k}{return} \PY{l+m+mi}{1}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{value}
+         
+             
+         \PY{n}{p} \PY{o}{=} \PY{l+m+mf}{0.5}
+         \PY{n}{k} \PY{o}{=} \PY{l+m+mf}{0.5}
+             
+         \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no\PYZus{}primary\PYZus{}dr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{has\PYZus{}diabetes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{column} \PY{o+ow}{in} \PY{n}{columns}\PY{p}{:}
+             \PY{n}{binary\PYZus{}column} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZus{}binary}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{column}\PY{p}{)}
+             \PY{n}{df}\PY{p}{[}\PY{n}{binary\PYZus{}column}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{column}\PY{p}{]} \PY{o}{==} \PY{k+kc}{False}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)} 
+             \PY{n}{values} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{k}{for} \PY{n}{value} \PY{o+ow}{in} \PY{n}{df}\PY{p}{[}\PY{n}{binary\PYZus{}column}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{values}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{process\PYZus{}value}\PY{p}{(}\PY{n}{value}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{k}\PY{p}{)}\PY{p}{)}
+             \PY{n}{dp\PYZus{}column} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZus{}dp}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{column}\PY{p}{)}
+             \PY{n}{df}\PY{p}{[}\PY{n}{dp\PYZus{}column}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{values}\PY{p}{)}
+             
+         \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no\PYZus{}primary\PYZus{}dr\PYZus{}binary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{no\PYZus{}primary\PYZus{}dr\PYZus{}dp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{20}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}     no\_primary\_dr\_binary  no\_primary\_dr\_dp
+         0                      0                 1
+         1                      0                 1
+         2                      1                 1
+         3                      0                 1
+         4                      1                 1
+         5                      0                 0
+         6                      0                 0
+         7                      1                 1
+         8                      0                 1
+         9                      1                 1
+         10                     1                 0
+         11                     0                 0
+         12                     1                 0
+         13                     1                 1
+         14                     0                 0
+         15                     0                 1
+         16                     0                 1
+         17                     1                 1
+         18                     0                 0
+         19                     0                 0
+\end{Verbatim}
+            
+    \subsubsection{Discussion:}\label{discussion}
+
+\begin{itemize}
+\tightlist
+\item
+  What was difficult to decide and implement?
+\item
+  How might this relate to real problems in machine learning with
+  sensitive data?
+\item
+  Does this apply to your work? How? What can you take away?
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{protected\PYZus{}df}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../data/health\PYZus{}data\PYZus{}protected.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
